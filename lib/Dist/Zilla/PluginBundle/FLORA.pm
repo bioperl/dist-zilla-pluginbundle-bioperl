@@ -8,6 +8,41 @@ use MooseX::Types::Moose qw(Bool Str CodeRef);
 use MooseX::Types::Structured 0.20 qw(Map Dict Optional);
 use namespace::autoclean -also => 'lower';
 
+=head1 SYNOPSIS
+
+In dist.ini:
+
+  [@FLORA]
+  dist = Distribution-Name
+  repository_at = github
+
+=head1 DESCRIPTION
+
+This is the L<Dist::Zilla> configuration I use to build my
+distributions.
+
+It is roughly equivalent to:
+
+  [@Filter]
+  bundle = @Classic
+  remove = PodVersion
+  remove = BumpVersion
+
+  [MetaConfig]
+  [MetaJSON]
+
+  [MetaResources]
+  repository = git://github.com/rafl/${lowercase_distribution}
+  bugtracker = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
+  homepage   = http://search.cpan.org/dist/${dist}
+
+  [PodWeaver]
+  config_plugin = @FLORA
+
+  [AutoPrereq]
+
+=cut
+
 has dist => (
     is       => 'ro',
     isa      => Str,

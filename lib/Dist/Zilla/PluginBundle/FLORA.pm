@@ -123,6 +123,7 @@ method _build__repository_url {
 method _resolve_repository ($repo) {
     my $dist = $self->dist;
     my $data = $self->_repository_data_for($repo);
+    confess "unknown repository service $repo" unless $data;
     return sprintf $data->{pattern}, (exists $data->{mangle} ? $data->{mangle}->($dist) : $dist);
 }
 

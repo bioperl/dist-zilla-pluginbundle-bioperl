@@ -1,0 +1,4 @@
+.*
+!.gitignore
+Dist-Zilla-PluginBundle-FLORA-*
+Debian_CPANTS.txt

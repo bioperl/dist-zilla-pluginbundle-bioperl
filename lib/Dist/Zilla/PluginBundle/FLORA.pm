@@ -153,7 +153,7 @@ method configure {
 
     $self->is_task
         ? $self->add_plugins('TaskWeaver')
-        : $self->add_plugins('PodWeaver');
+        : $self->add_plugins([ 'PodWeaver' => { config_plugin => '@FLORA' } ]);
 
     $self->add_plugins('AutoPrereq') if $self->auto_prereq;
 }

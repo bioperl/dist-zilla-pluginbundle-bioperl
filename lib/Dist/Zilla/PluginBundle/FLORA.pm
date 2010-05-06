@@ -14,6 +14,12 @@ has dist => (
     required => 1,
 );
 
+has auto_prereq => (
+    is      => 'ro',
+    isa     => Bool,
+    default => 1,
+);
+
 has is_task => (
     is      => 'ro',
     isa     => Bool,
@@ -148,6 +154,8 @@ method configure {
     $self->is_task
         ? $self->add_plugins('TaskWeaver')
         : $self->add_plugins('PodWeaver');
+
+    $self->add_plugins('AutoPrereq') if $self->auto_prereq;
 }
 
 with 'Dist::Zilla::Role::PluginBundle::Easy';

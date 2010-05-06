@@ -1,11 +1,11 @@
 package Dist::Zilla::PluginBundle::FLORA;
 # ABSTRACT: Build your distributions like FLORA does
 
-use Moose;
+use Moose 1.00;
 use Method::Signatures::Simple;
 use MooseX::Types::URI qw(Uri);
 use MooseX::Types::Moose qw(Bool Str CodeRef);
-use MooseX::Types::Structured qw(Map Dict Optional);
+use MooseX::Types::Structured 0.20 qw(Map Dict Optional);
 use namespace::autoclean -also => 'lower';
 
 has dist => (

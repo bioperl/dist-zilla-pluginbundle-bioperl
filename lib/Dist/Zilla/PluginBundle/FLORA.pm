@@ -181,11 +181,18 @@ method configure {
         MetaJSON
     ));
 
-    $self->add_plugins([ 'MetaResources' => {
-        repository => $self->_repository_url,
-        bugtracker => $self->bugtracker_url,
-        homepage   => $self->homepage_url,
-    }]);
+    $self->add_plugins(
+        [MetaResources => {
+            repository => $self->_repository_url,
+            bugtracker => $self->bugtracker_url,
+            homepage   => $self->homepage_url,
+        }],
+        [Authority => {
+            authority   => 'cpan:FLORA',
+            do_metadata => 1,
+        }]
+    );
+
 
     $self->is_task
         ? $self->add_plugins('TaskWeaver')

@@ -1,2 +1,5 @@
+0.02  Fri, 07 May 2010 04:13:13 +0200
+  * Set authority to cpan:FLORA in both the modules and and metadata.
+
 0.01  Thu, 06 May 2010 20:20:29 +0200
   * Initial release.

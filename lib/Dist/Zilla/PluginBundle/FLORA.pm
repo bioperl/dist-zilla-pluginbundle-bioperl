@@ -173,6 +173,7 @@ method configure {
     $self->add_plugins(qw(
         MetaConfig
         MetaJSON
+        PkgVersion
         PodSyntaxTests
         PodCoverageTests
     ));

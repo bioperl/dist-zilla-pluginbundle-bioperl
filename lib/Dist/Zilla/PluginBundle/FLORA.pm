@@ -168,17 +168,13 @@ override BUILDARGS => method ($class:) {
 };
 
 method configure {
-    $self->add_bundle('@Filter' => {
-        bundle => '@Classic',
-        remove => [qw(
-            PodVersion
-            BumpVersion
-        )],
-    });
+    $self->add_bundle('@Basic');
 
     $self->add_plugins(qw(
         MetaConfig
         MetaJSON
+        PodSyntaxTests
+        PodCoverageTests
     ));
 
     $self->add_plugins(

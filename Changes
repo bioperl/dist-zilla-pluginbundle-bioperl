@@ -1,3 +1,7 @@
+0.03  Sat, 08 May 2010 21:13:24 +0200
+  * Use @Basic and add Pod{Syntax,Coverage}Tests instead of using @Classic and
+    removing {Pod,Bump}Version.
+
 0.02  Fri, 07 May 2010 04:13:13 +0200
   * Set authority to cpan:FLORA in both the modules and and metadata.
 

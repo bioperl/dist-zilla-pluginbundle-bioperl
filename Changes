@@ -1,3 +1,6 @@
+0.04  Sat, 08 May 2010 21:22:38 +0200
+  * Re-enable PkgVersion.
+
 0.03  Sat, 08 May 2010 21:13:24 +0200
   * Use @Basic and add Pod{Syntax,Coverage}Tests instead of using @Classic and
     removing {Pod,Bump}Version.

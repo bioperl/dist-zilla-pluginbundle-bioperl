@@ -1,3 +1,6 @@
+0.05  Sun, 09 May 2010 23:23:19 +0200
+  * Make authority configurable.
+
 0.04  Sat, 08 May 2010 21:22:38 +0200
   * Re-enable PkgVersion.
 

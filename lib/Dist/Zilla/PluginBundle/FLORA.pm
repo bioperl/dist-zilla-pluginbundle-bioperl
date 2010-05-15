@@ -160,6 +160,7 @@ method _build__repository_host_map {
 
     return {
         github => { pattern => $github_pattern, mangle => \&lower },
+        GitHub => { pattern => $github_pattern },
         gitmo  => { pattern => 'git://git.moose.perl.org/gitmo/%s.git' },
         (map { ($_ => { pattern => "git://git.shadowcat.co.uk/${_}/%s.git" }) }
              qw(catagits p5sagit dbsrgits)),

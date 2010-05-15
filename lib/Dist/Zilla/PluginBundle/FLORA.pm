@@ -33,7 +33,7 @@ It is roughly equivalent to:
   [MetaJSON]
 
   [MetaResources]
-  repository = git://github.com/rafl/${lowercase_distribution}
+  repository = git://github.com/rafl/${lowercase_dist}
   bugtracker = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
   homepage   = http://search.cpan.org/dist/${dist}
 
@@ -207,6 +207,7 @@ method configure {
         PkgVersion
         PodSyntaxTests
         PodCoverageTests
+        SanityTests
     ));
 
     $self->add_plugins(

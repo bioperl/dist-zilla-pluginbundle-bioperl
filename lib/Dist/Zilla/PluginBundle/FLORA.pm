@@ -135,11 +135,14 @@ has github_user => (
 my $map_tc = Map[Str, Dict[pattern => CodeRef, mangle => Optional[CodeRef]]];
 coerce $map_tc, from Map[Str, Dict[pattern => Str|CodeRef, mangle => Optional[CodeRef]]], via {
     my %in = %{ $_ };
-    for my $k (keys %in) {
-        $in{$k}->{pattern} = sub { $in{$k}->{pattern} }
-            unless ref $in{$k}->{pattern} eq 'CODE';
-    }
-    return \%in;
+    return { map {
+        ($_ => {
+            %{ $in{$_} },
+            (ref $in{$_}->{pattern} ne 'CODE'
+                 ? (pattern => sub { $in{$_}->{pattern} })
+                 : ()),
+        })
+    } keys %in };
 };
 
 has _repository_host_map => (

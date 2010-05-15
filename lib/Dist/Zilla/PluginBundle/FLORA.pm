@@ -25,17 +25,23 @@ distributions.
 It is roughly equivalent to:
 
   [@Filter]
-  bundle = @Classic
-  remove = PodVersion
-  remove = BumpVersion
+  bundle = @Basic
 
   [MetaConfig]
   [MetaJSON]
+  [PkgVersion]
+  [PodSyntaxTests]
+  [PodCoverageTests]
+  [SanityTests]
 
   [MetaResources]
   repository = git://github.com/rafl/${lowercase_dist}
   bugtracker = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
   homepage   = http://search.cpan.org/dist/${dist}
+
+  [Authority]
+  authority   = cpan:FLORA
+  do_metadata = 1
 
   [PodWeaver]
   config_plugin = @FLORA

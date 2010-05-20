@@ -1,3 +1,7 @@
+0.07  Thu, 20 May 2010 23:07:15 +0200
+  * Depend on Pod::Weaver::PluginBundle::FLORA 0.02 for the TYPE collector
+    section.
+
 0.06  Sat, 15 May 2010 13:07:27 +0200
   * Make specifying github repo urls with camel case dist names easier.
   * Allow specifying the github username to use.

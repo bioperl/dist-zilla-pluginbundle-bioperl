@@ -79,6 +79,12 @@ method _build_is_task {
     return $self->dist =~ /^Task-/ ? 1 : 0;
 }
 
+has disable_pod_coverage_tests => (
+    is      => 'ro',
+    isa     => Bool,
+    default => 0,
+);
+
 has bugtracker_url => (
     isa     => Uri,
     coerce  => 1,
@@ -212,9 +218,11 @@ method configure {
         MetaJSON
         PkgVersion
         PodSyntaxTests
-        PodCoverageTests
         SanityTests
     ));
+
+    $self->add_plugins('PodCoverageTests')
+        unless $self->disable_pod_coverage_tests;
 
     $self->add_plugins(
         [MetaResources => {

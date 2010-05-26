@@ -5,6 +5,7 @@ use Moose 1.00;
 use Method::Signatures::Simple;
 use Moose::Util::TypeConstraints;
 use MooseX::Types::URI qw(Uri);
+use MooseX::Types::Email qw(EmailAddress);
 use MooseX::Types::Moose qw(Bool Str CodeRef);
 use MooseX::Types::Structured 0.20 qw(Map Dict Optional);
 use namespace::autoclean -also => 'lower';
@@ -99,6 +100,17 @@ method _build_bugtracker_url {
     return sprintf $self->_rt_uri_pattern, $self->dist;
 }
 
+has bugtracker_email => (
+    is      => 'ro',
+    isa     => EmailAddress,
+    lazy    => 1,
+    builder => '_build_bugtracker_email',
+);
+
+method _build_bugtracker_email {
+    return sprintf 'bug-%s@rt.cpan.org', $self->dist;
+}
+
 has _rt_uri_pattern => (
     is      => 'ro',
     isa     => Str,
@@ -126,10 +138,14 @@ has _cpansearch_pattern => (
 );
 
 has repository => (
-    is        => 'ro',
-    isa       => Uri,
-    coerce    => 1,
-    predicate => 'has_repository',
+    isa     => Uri,
+    coerce  => 1,
+    lazy    => 1,
+    builder => '_build_repository_url',
+    handles => {
+        repository_url    => 'as_string',
+        repository_scheme => 'scheme',
+    },
 );
 
 has repository_at => (
@@ -144,15 +160,32 @@ has github_user => (
     default => 'rafl',
 );
 
-my $map_tc = Map[Str, Dict[pattern => CodeRef, mangle => Optional[CodeRef]]];
-coerce $map_tc, from Map[Str, Dict[pattern => Str|CodeRef, mangle => Optional[CodeRef]]], via {
+my $map_tc = Map[
+    Str, Dict[
+        pattern     => CodeRef,
+        web_pattern => CodeRef,
+        mangle      => Optional[CodeRef],
+    ]
+];
+
+coerce $map_tc, from Map[
+    Str, Dict[
+        pattern     => Str|CodeRef,
+        web_pattern => Str|CodeRef,
+        mangle      => Optional[CodeRef],
+    ]
+], via {
     my %in = %{ $_ };
     return { map {
-        ($_ => {
-            %{ $in{$_} },
-            (ref $in{$_}->{pattern} ne 'CODE'
-                 ? (pattern => sub { $in{$_}->{pattern} })
-                 : ()),
+        my $k = $_;
+        ($k => {
+            %{ $in{$k} },
+            (map {
+                my $v = $_;
+                (ref $in{$k}->{$v} ne 'CODE'
+                     ? ($v => sub { $in{$k}->{$v} })
+                     : ()),
+            } qw(pattern web_pattern)),
         })
     } keys %in };
 };
@@ -172,37 +205,82 @@ sub lower { lc shift }
 
 method _build__repository_host_map {
     my $github_pattern = sub { sprintf 'git://github.com/%s/%%s.git', $self->github_user };
+    my $github_web_pattern = sub { sprintf 'http://github.com/%s/%%s', $self->github_user };
+    my $scsys_web_pattern_proto = sub {
+        return sprintf 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=%s/%%s.git;a=summary', $_[0];
+    };
 
     return {
-        github => { pattern => $github_pattern, mangle => \&lower },
-        GitHub => { pattern => $github_pattern },
-        gitmo  => { pattern => 'git://git.moose.perl.org/gitmo/%s.git' },
-        (map { ($_ => { pattern => "git://git.shadowcat.co.uk/${_}/%s.git" }) }
-             qw(catagits p5sagit dbsrgits)),
+        github => {
+            pattern     => $github_pattern,
+            web_pattern => $github_web_pattern,
+            mangle      => \&lower,
+        },
+        GitHub => {
+            pattern     => $github_pattern,
+            web_pattern => $github_web_pattern,
+        },
+        gitmo => {
+            pattern     => 'git://git.moose.perl.org/gitmo/%s.git',
+            web_pattern => $scsys_web_pattern_proto->('gitmo'),
+        },
+        (map {
+            ($_ => {
+                pattern     => "git://git.shadowcat.co.uk/${_}/%s.git",
+                web_pattern => $scsys_web_pattern_proto->($_),
+            })
+        } qw(catagits p5sagit dbsrgits)),
     };
 }
 
-has _repository_url => (
+method _build_repository_url {
+    return $self->_resolve_repository_with($self->repository_at, 'pattern')
+        if $self->has_repository_at;
+    confess "Cannot determine repository url without repository_at. "
+          . "Please provide either repository_at or repository."
+}
+
+has repository_web => (
     isa     => Uri,
     coerce  => 1,
     lazy    => 1,
-    builder => '_build__repository_url',
+    builder => '_build_repository_web',
     handles => {
-        _repository_url => 'as_string',
+        repository_web => 'as_string',
     },
 );
 
-method _build__repository_url {
-    return $self->repository if $self->has_repository;
-    return $self->_resolve_repository($self->repository_at) if $self->has_repository_at;
-    confess "one of repository or repository_at is required";
+method _build_repository_web {
+    return $self->_resolve_repository_with($self->repository_at, 'web_pattern')
+        if $self->has_repository_at;
+    confess "Cannot determine repository web url without repository_at. "
+          . "Please provide either repository_at or repository_web."
 }
 
-method _resolve_repository ($repo) {
+method _resolve_repository_with ($service, $thing) {
     my $dist = $self->dist;
-    my $data = $self->_repository_data_for($repo);
-    confess "unknown repository service $repo" unless $data;
-    return sprintf $data->{pattern}->(), (exists $data->{mangle} ? $data->{mangle}->($dist) : $dist);
+    my $data = $self->_repository_data_for($service);
+    confess "unknown repository service $service" unless $data;
+    return sprintf $data->{$thing}->(),
+        (exists $data->{mangle}
+             ? $data->{mangle}->($dist)
+             : $dist);
+}
+
+has repository_type => (
+    is      => 'ro',
+    isa     => Str,
+    lazy    => 1,
+    builder => '_build_repository_type',
+);
+
+method _build_repository_type {
+    for my $vcs (qw(git svn)) {
+        return $vcs if $self->repository_scheme eq $vcs;
+    }
+
+    confess "Unable to guess repository type based on the repository url. "
+          . "Please provide repository_type.";
 }
 
 override BUILDARGS => method ($class:) {
@@ -226,9 +304,12 @@ method configure {
 
     $self->add_plugins(
         [MetaResources => {
-            repository => $self->_repository_url,
-            bugtracker => $self->bugtracker_url,
-            homepage   => $self->homepage_url,
+            'repository.type'   => $self->repository_type,
+            'repository.url'    => $self->repository_url,
+            'repository.web'    => $self->repository_web,
+            'bugtracker.web'    => $self->bugtracker_url,
+            'bugtracker.mailto' => $self->bugtracker_email,
+            'homepage'          => $self->homepage_url,
         }],
         [Authority => {
             authority   => $self->authority,

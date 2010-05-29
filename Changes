@@ -1,3 +1,6 @@
+0.10  Sat, 29 May 2010 17:06:50 +0200
+  * Use NoTabsTests and EOLTests instead of SanityTests.
+
 0.09  Wed, 26 May 2010 04:07:04 +0200
   * Emit additional resources metadata for CPAN META 2.0.
 

@@ -33,7 +33,8 @@ It is roughly equivalent to:
   [PkgVersion]
   [PodSyntaxTests]
   [PodCoverageTests]
-  [SanityTests]
+  [NoTabsTests]
+  [EOLTests]
 
   [MetaResources]
   repository = git://github.com/rafl/${lowercase_dist}
@@ -296,7 +297,8 @@ method configure {
         MetaJSON
         PkgVersion
         PodSyntaxTests
-        SanityTests
+        NoTabsTests
+        EOLTests
     ));
 
     $self->add_plugins('PodCoverageTests')

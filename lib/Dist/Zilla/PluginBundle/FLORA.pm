@@ -87,6 +87,12 @@ has disable_pod_coverage_tests => (
     default => 0,
 );
 
+has disable_trailing_whitespace_tests => (
+    is      => 'ro',
+    isa     => Bool,
+    default => 0,
+);
+
 has bugtracker_url => (
     isa     => Uri,
     coerce  => 1,
@@ -298,7 +304,6 @@ method configure {
         PkgVersion
         PodSyntaxTests
         NoTabsTests
-        EOLTests
     ));
 
     $self->add_plugins('PodCoverageTests')
@@ -316,7 +321,10 @@ method configure {
         [Authority => {
             authority   => $self->authority,
             do_metadata => 1,
-        }]
+        }],
+        [EOLTests => {
+            trailing_whitespace => !$self->disable_trailing_whitespace_tests,
+        }],
     );
 
 

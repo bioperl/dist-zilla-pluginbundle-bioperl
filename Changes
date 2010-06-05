@@ -1,3 +1,8 @@
+0.11  Sat, 05 Jun 2010 20:18:39 +0200
+  * Allow EOLTests trailing whitespace checks to be turned off.
+  * Depend on a Pod::Weaver::PluginBundle::FLORA using
+    Pod::Weaver::Plugin::Encoding.
+
 0.10  Sat, 29 May 2010 17:06:50 +0200
   * Use NoTabsTests and EOLTests instead of SanityTests.
 

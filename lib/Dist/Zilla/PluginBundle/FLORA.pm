@@ -81,6 +81,12 @@ method _build_is_task {
     return $self->dist =~ /^Task-/ ? 1 : 0;
 }
 
+has weaver_config_plugin => (
+    is      => 'ro',
+    isa     => Str,
+    default => '@FLORA',
+);
+
 has disable_pod_coverage_tests => (
     is      => 'ro',
     isa     => Bool,
@@ -330,7 +336,11 @@ method configure {
 
     $self->is_task
         ? $self->add_plugins('TaskWeaver')
-        : $self->add_plugins([ 'PodWeaver' => { config_plugin => '@FLORA' } ]);
+        : $self->add_plugins(
+              [PodWeaver => {
+                  config_plugin => $self->weaver_config_plugin,
+              }],
+          );
 
     $self->add_plugins('AutoPrereq') if $self->auto_prereq;
 }

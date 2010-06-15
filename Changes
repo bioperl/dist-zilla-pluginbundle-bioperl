@@ -1,3 +1,6 @@
+0.12  Tue, 15 Jun 2010 11:44:01 +0200
+  * Fix gitmo repository urls.
+
 0.11  Sat, 05 Jun 2010 20:18:39 +0200
   * Allow EOLTests trailing whitespace checks to be turned off.
   * Depend on a Pod::Weaver::PluginBundle::FLORA using

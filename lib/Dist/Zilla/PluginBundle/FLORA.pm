@@ -234,7 +234,7 @@ method _build__repository_host_map {
             web_pattern => $github_web_pattern,
         },
         gitmo => {
-            pattern     => 'git://git.moose.perl.org/gitmo/%s.git',
+            pattern     => 'git://git.moose.perl.org/%s.git',
             web_pattern => $scsys_web_pattern_proto->('gitmo'),
         },
         (map {

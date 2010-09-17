@@ -37,9 +37,12 @@ It is roughly equivalent to:
   [EOLTests]
 
   [MetaResources]
-  repository = git://github.com/rafl/${lowercase_dist}
-  bugtracker = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
-  homepage   = http://search.cpan.org/dist/${dist}
+  repository.type   = git
+  repository.url    = git://github.com/rafl/${lowercase_dist}
+  repository.web    = http://github.com/rafl/${lowercase_dist}
+  bugtracker.web    = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
+  bugtracker.mailto = bug-${dist}@rt.cpan.org
+  homepage          = http://search.cpan.org/dist/${dist}
 
   [Authority]
   authority   = cpan:FLORA

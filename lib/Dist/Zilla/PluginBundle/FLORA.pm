@@ -51,7 +51,7 @@ It is roughly equivalent to:
   [PodWeaver]
   config_plugin = @FLORA
 
-  [AutoPrereq]
+  [AutoPrereqs]
 
 =cut
 
@@ -67,10 +67,18 @@ has authority => (
     default => 'cpan:FLORA',
 );
 
+# backcompat
 has auto_prereq => (
     is      => 'ro',
     isa     => Bool,
     default => 1,
+);
+
+has auto_prereqs => (
+    is      => 'ro',
+    isa     => Bool,
+    lazy    => 1,
+    default => sub { shift->auto_prereq },
 );
 
 has is_task => (
@@ -345,7 +353,7 @@ method configure {
               }],
           );
 
-    $self->add_plugins('AutoPrereq') if $self->auto_prereq;
+    $self->add_plugins('AutoPrereqs') if $self->auto_prereqs;
 }
 
 with 'Dist::Zilla::Role::PluginBundle::Easy';

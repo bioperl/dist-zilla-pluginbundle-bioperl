@@ -1,3 +1,8 @@
+0.13  Tue, 05 Oct 2010 00:24:29 +0200
+  * Allow 'catsvn' to be used to refer to dists in Catalyst's SVN repository.
+  * Use AutoPrereqs instead of the deprecated AutoPrereq plugin.
+  * Minor documentation fixes.
+
 0.12  Tue, 15 Jun 2010 11:44:01 +0200
   * Fix gitmo repository urls.
 

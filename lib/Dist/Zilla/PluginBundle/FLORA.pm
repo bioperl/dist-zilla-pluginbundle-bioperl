@@ -188,6 +188,7 @@ my $map_tc = Map[
     Str, Dict[
         pattern     => CodeRef,
         web_pattern => CodeRef,
+        type        => Optional[Str],
         mangle      => Optional[CodeRef],
     ]
 ];
@@ -196,6 +197,7 @@ coerce $map_tc, from Map[
     Str, Dict[
         pattern     => Str|CodeRef,
         web_pattern => Str|CodeRef,
+        type        => Optional[Str],
         mangle      => Optional[CodeRef],
     ]
 ], via {
@@ -248,6 +250,11 @@ method _build__repository_host_map {
             pattern     => 'git://git.moose.perl.org/%s.git',
             web_pattern => $scsys_web_pattern_proto->('gitmo'),
         },
+        catsvn => {
+            type        => 'svn',
+            pattern     => 'http://dev.catalyst.perl.org/repos/Catalyst/%s/',
+            web_pattern => 'http://dev.catalystframework.org/svnweb/Catalyst/browse/%s',
+        },
         (map {
             ($_ => {
                 pattern     => "git://git.shadowcat.co.uk/${_}/%s.git",
@@ -299,6 +306,9 @@ has repository_type => (
 );
 
 method _build_repository_type {
+    my $data = $self->_repository_data_for($self->repository_at);
+    return $data->{type} if exists $data->{type};
+
     for my $vcs (qw(git svn)) {
         return $vcs if $self->repository_scheme eq $vcs;
     }

@@ -1,5 +1,5 @@
 package Dist::Zilla::PluginBundle::Bioperl;
-# ABSTRACT: Build your distributions like FLORA does
+# ABSTRACT: Build your distributions like Bioperl does
 
 use Moose 1.00;
 use Method::Signatures::Simple;
@@ -47,7 +47,7 @@ It is roughly equivalent to:
   homepage          = http://search.cpan.org/dist/${dist}
 
   [Authority]
-  authority   = cpan:FLORA
+  authority   = cpan:CJFIELDS
   do_metadata = 1
 
   [PodWeaver]
@@ -67,7 +67,7 @@ has authority => ($self->add_plugins('PodCoverageTests')
         unless $self->disable_pod_coverage_tests;
     is      => 'ro',
     isa     => Str,
-    default => 'cpan:FLORA',
+    default => 'cpan:CJFIELDS',
 );
 
 # backcompat

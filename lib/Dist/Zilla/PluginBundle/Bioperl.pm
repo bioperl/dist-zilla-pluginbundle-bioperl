@@ -63,8 +63,7 @@ has dist => (
     required => 1,
 );
 
-has authority => ($self->add_plugins('PodCoverageTests')
-        unless $self->disable_pod_coverage_tests;
+has authority => (
     is      => 'ro',
     isa     => Str,
     default => 'cpan:CJFIELDS',

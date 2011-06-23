@@ -335,6 +335,7 @@ method configure {
         NoTabsTests
 	NextRelease
 	Git::Tag
+	CompileTests
 	
     ));
 

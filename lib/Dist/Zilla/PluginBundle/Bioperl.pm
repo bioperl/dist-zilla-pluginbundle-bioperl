@@ -50,8 +50,8 @@ It is roughly equivalent to:
   authority   = cpan:CJFIELDS
   do_metadata = 1
 
-  [PodWeaver]
-  config_plugin = @FLORA
+  #[PodWeaver]
+  #config_plugin = @FLORA
 
   [AutoPrereqs]
 
@@ -336,7 +336,6 @@ method configure {
 	NextRelease
 	Git::Tag
 	CompileTests
-	
     ));
 
     $self->add_plugins('PodCoverageTests')
@@ -361,14 +360,16 @@ method configure {
         }],
     );
 
-
-    $self->is_task
-        ? $self->add_plugins('TaskWeaver')
-        : $self->add_plugins(
-              [PodWeaver => {
-                  config_plugin => $self->weaver_config_plugin,
-              }],
-          );
+    # TODO: figure out and migrate to a Bioperl-wide PodWeaver config
+    # plugin.  this will require deleting large amounts of POD
+    # boilerplate from the existing codebase. -- rbuels
+    # $self->is_task
+    #     ? $self->add_plugins('TaskWeaver')
+    #     : $self->add_plugins(
+    #           [PodWeaver => {
+    #               config_plugin => $self->weaver_config_plugin,
+    #           }],
+    #       );
 
     $self->add_plugins('AutoPrereqs') if $self->auto_prereqs;
 }

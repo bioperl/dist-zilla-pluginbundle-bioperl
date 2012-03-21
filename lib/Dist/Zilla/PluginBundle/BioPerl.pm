@@ -336,7 +336,7 @@ method configure {
         NoTabsTests
         NextRelease
         Git::Tag
-        CompileTests
+        Test::Compile
     ));
 
     $self->add_plugins('PodCoverageTests')

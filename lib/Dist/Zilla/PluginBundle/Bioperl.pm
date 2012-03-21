@@ -1,4 +1,5 @@
 package Dist::Zilla::PluginBundle::Bioperl;
+
 # ABSTRACT: Build your distributions like Bioperl does
 
 use Moose 1.00;
@@ -333,9 +334,9 @@ method configure {
         PkgVersion
         PodSyntaxTests
         NoTabsTests
-	NextRelease
-	Git::Tag
-	CompileTests
+        NextRelease
+        Git::Tag
+        CompileTests
     ));
 
     $self->add_plugins('PodCoverageTests')

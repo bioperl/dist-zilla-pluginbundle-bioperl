@@ -1,4 +1,4 @@
-package Dist::Zilla::PluginBundle::Bioperl;
+package Dist::Zilla::PluginBundle::BioPerl;
 
 # ABSTRACT: Build your distributions like Bioperl does
 

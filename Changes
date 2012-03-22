@@ -1,4 +1,7 @@
 {{$NEXT}}
 
+0.02      2012-03-21 22:41:54 America/Chicago
+  * Fix default git repo user (apologies to rafl)
+
 0.01      2012-03-21 14:45:16 America/Chicago
   * Initial release.

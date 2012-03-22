@@ -15,14 +15,13 @@ use namespace::autoclean -also => 'lower';
 
 In dist.ini:
 
-  [@Bioperl]
+  [@BioPerl]
   dist = Distribution-Name
   repository_at = github
 
 =head1 DESCRIPTION
 
-This is the L<Dist::Zilla> configuration I use to build my
-distributions.
+This is the L<Dist::Zilla> configuration for the BioPerl project.
 
 It is roughly equivalent to:
 
@@ -41,8 +40,8 @@ It is roughly equivalent to:
 
   [MetaResources]
   repository.type   = git
-  repository.url    = git://github.com/rafl/${lowercase_dist}
-  repository.web    = http://github.com/rafl/${lowercase_dist}
+  repository.url    = git://github.com/bioperl/${lowercase_dist}
+  repository.web    = http://github.com/bioperl/${lowercase_dist}
   bugtracker.web    = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
   bugtracker.mailto = bug-${dist}@rt.cpan.org
   homepage          = http://search.cpan.org/dist/${dist}
@@ -51,6 +50,7 @@ It is roughly equivalent to:
   authority   = cpan:CJFIELDS
   do_metadata = 1
 
+  # NOT ENABLED YET!
   #[PodWeaver]
   #config_plugin = @FLORA
 
@@ -98,7 +98,7 @@ method _build_is_task {
 has weaver_config_plugin => (
     is      => 'ro',
     isa     => Str,
-    default => '@FLORA',
+    default => '@FLORA',  # TODO: needs to change
 );
 
 has disable_pod_coverage_tests => (
@@ -184,7 +184,7 @@ has repository_at => (
 has github_user => (
     is      => 'ro',
     isa     => Str,
-    default => 'rafl',
+    default => 'bioperl',
 );
 
 my $map_tc = Map[

@@ -42,8 +42,8 @@ It is roughly equivalent to:
   repository.type   = git
   repository.url    = git://github.com/bioperl/${lowercase_dist}
   repository.web    = http://github.com/bioperl/${lowercase_dist}
-  bugtracker.web    = http://rt.cpan.org/Public/Dist/Display.html?Name=${dist}
-  bugtracker.mailto = bug-${dist}@rt.cpan.org
+  bugtracker.web    = https://redmine.open-bio.org/projects/bioperl/
+  bugtracker.mailto = bioperl-l@bioperl.org
   homepage          = http://search.cpan.org/dist/${dist}
 
   [Authority]
@@ -70,7 +70,9 @@ has authority => (
     default => 'cpan:CJFIELDS',
 );
 
-# backcompat
+## The AutoPrereqs plugin used to be named AutoPrereq (note the missing s). It
+## been deprecated since Sep 17, 2010 -- v4.102341 and will be removed with
+## version 5 but in the mean time, this keeps backward compatibility
 has auto_prereq => (
     is      => 'ro',
     isa     => Bool,
@@ -135,13 +137,13 @@ has bugtracker_email => (
 );
 
 method _build_bugtracker_email {
-    return sprintf 'bug-%s@rt.cpan.org', $self->dist;
+    return sprintf 'bioperl-l@bioperl.org', $self->dist;
 }
 
 has _rt_uri_pattern => (
     is      => 'ro',
     isa     => Str,
-    default => 'http://rt.cpan.org/Public/Dist/Display.html?Name=%s',
+    default => 'https://redmine.open-bio.org/projects/bioperl/',
 );
 
 has homepage_url => (

@@ -1,4 +1,5 @@
 {{$NEXT}}
+  * Fix link and e-mail address that should be used when reporting bugs.
 
 0.02      2012-03-21 22:41:54 America/Chicago
   * Fix default git repo user (apologies to rafl)

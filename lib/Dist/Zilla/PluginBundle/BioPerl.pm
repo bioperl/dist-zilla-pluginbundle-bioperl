@@ -15,7 +15,7 @@ with 'Dist::Zilla::Role::PluginBundle::Easy';
 =head1 SYNOPSIS
 
   # dist.ini
-  name = Dist-Zilla-Plugin-AutoMetaResources
+  name = Dist-Zilla-Plugin-BioPerl
   ...
   
   [@BioPerl]

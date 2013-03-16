@@ -71,20 +71,11 @@ has authority => (
     default => 'cpan:CJFIELDS',
 );
 
-## The AutoPrereqs plugin used to be named AutoPrereq (note the missing s). It
-## been deprecated since Sep 17, 2010 -- v4.102341 and will be removed with
-## version 5 but in the mean time, this keeps backward compatibility
-has auto_prereq => (
-    is      => 'ro',
-    isa     => Bool,
-    default => 1,
-);
-
 has auto_prereqs => (
     is      => 'ro',
     isa     => Bool,
     lazy    => 1,
-    default => sub { shift->auto_prereq },
+    default => 1,
 );
 
 has is_task => (

@@ -117,16 +117,11 @@ has disable_trailing_whitespace_tests => (
 );
 
 has bugtracker_url => (
+    is      => 'ro',
     isa     => Uri,
     coerce  => 1,
     lazy    => 1,
     default => 'https://redmine.open-bio.org/projects/bioperl/',
-    ## we can't set an accessor and just coerce it with Uri, we need this hack
-    ## with handles because of a bug in Config::MVP::Assembler::WithBundles
-    ## See https://rt.cpan.org/Public/Bug/Display.html?id=57265
-    handles => {
-        bugtracker_url => 'as_string',
-    },
 );
 
 has bugtracker_email => (
@@ -137,13 +132,11 @@ has bugtracker_email => (
 );
 
 has homepage_url => (
+    is      => 'ro',
     isa     => Uri,
     coerce  => 1,
     lazy    => 1,
     builder => '_build_homepage_url',
-    handles => {
-        homepage_url => 'as_string',
-    },
 );
 
 method _build_homepage_url {
@@ -267,13 +260,11 @@ method _build_repository_url {
 }
 
 has repository_web => (
+    is      => 'ro',
     isa     => Uri,
     coerce  => 1,
     lazy    => 1,
     builder => '_build_repository_web',
-    handles => {
-        repository_web => 'as_string',
-    },
 );
 
 method _build_repository_web {
@@ -336,14 +327,14 @@ method configure {
 
 
     $self->add_plugins(
-        [MetaResources => {
+        [MetaResources => [
             'repository.type'   => $self->repository_type,
             'repository.url'    => $self->repository_url,
             'repository.web'    => $self->repository_web,
             'bugtracker.web'    => $self->bugtracker_url,
             'bugtracker.mailto' => $self->bugtracker_email,
             'homepage'          => $self->homepage_url,
-        }],
+        ]],
         [Authority => {
             authority   => $self->authority,
             do_metadata => 1,

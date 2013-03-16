@@ -10,6 +10,7 @@ use MooseX::Types::Email qw(EmailAddress);
 use MooseX::Types::Moose qw(Bool Str CodeRef);
 use MooseX::Types::Structured 0.20 qw(Map Dict Optional);
 use namespace::autoclean -also => 'lower';
+use URI;
 
 =head1 SYNOPSIS
 
@@ -119,31 +120,20 @@ has bugtracker_url => (
     isa     => Uri,
     coerce  => 1,
     lazy    => 1,
-    builder => '_build_bugtracker_url',
+    default => 'https://redmine.open-bio.org/projects/bioperl/',
+    ## we can't set an accessor and just coerce it with Uri, we need this hack
+    ## with handles because of a bug in Config::MVP::Assembler::WithBundles
+    ## See https://rt.cpan.org/Public/Bug/Display.html?id=57265
     handles => {
         bugtracker_url => 'as_string',
     },
 );
 
-method _build_bugtracker_url {
-    return sprintf $self->_rt_uri_pattern, $self->dist;
-}
-
 has bugtracker_email => (
     is      => 'ro',
     isa     => EmailAddress,
     lazy    => 1,
-    builder => '_build_bugtracker_email',
-);
-
-method _build_bugtracker_email {
-    return sprintf 'bioperl-l@bioperl.org', $self->dist;
-}
-
-has _rt_uri_pattern => (
-    is      => 'ro',
-    isa     => Str,
-    default => 'https://redmine.open-bio.org/projects/bioperl/',
+    default => 'bioperl-l@bioperl.org',
 );
 
 has homepage_url => (

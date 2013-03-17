@@ -25,39 +25,39 @@ with 'Dist::Zilla::Role::PluginBundle::Easy';
 This is the L<Dist::Zilla> configuration for the BioPerl project. It is roughly
 equivalent to:
 
-  [@Basic]
+  [@Basic]              ; the basic to maintain and release CPAN distros
 
-  [MetaConfig]
-  [MetaJSON]
-  [PkgVersion]
-  [PodSyntaxTests]
-  [NoTabsTests]
-  [NextRelease]
-  [Git::Check]
-  [Git::Commit]
-  [Git::Tag]
-  [Test::Compile]
-  [PodCoverageTests]
-  [AutoPrereqs]
+  [MetaConfig]          ; summarize Dist::Zilla configuration on distribution
+  [MetaJSON]            ; produce a META.json
+  [PkgVersion]          ; add a $version to the modules
+  [PodSyntaxTests]      ; create a release test for Pod syntax
+  [NoTabsTests]         ; create a release tests making sure hard tabs aren't used
+  [NextRelease]         ; update release number on Changes file
+  [Git::Check]          ; check working path for any uncommitted stuff
+  [Git::Commit]         ; commit the dzil-generated stuff
+  [Git::Tag]            ; tag our new release
+  [Test::Compile]       ; test syntax of all modules
+  [PodCoverageTests]    ; create release test for Pod coverage
+  [AutoPrereqs]         ; automatically find the dependencies
   
-  [AutoMetaResources]
-  repository.github = user:bioperl
-  homepage          = http://search.cpan.org/dist/${dist}
+  [AutoMetaResources]   ; automatically fill resources fields on metadata
+  repository.github     = user:bioperl
+  homepage              = http://search.cpan.org/dist/${dist}
   
-  [MetaResources]
-  bugtracker.web    = https://redmine.open-bio.org/projects/bioperl/
-  bugtracker.mailto = bioperl-l@bioperl.org
+  [MetaResources]       ; fill resources fields on metadata
+  bugtracker.web        = https://redmine.open-bio.org/projects/bioperl/
+  bugtracker.mailto     = bioperl-l@bioperl.org
   
-  [Authority]
-  authority         = cpan:CJFIELDS
-  do_metadata       = 1
+  [Authority]           ; put the $AUTHORITY line in the modules and metadata
+  authority             = cpan:CJFIELDS
+  do_metadata           = 1
   
-  [EOLTests]
-  trailing_whitespace = 1
+  [EOLTests]            ; create release tests for correct line endings
+  trailing_whitespace   = 1
   
   # NOT ENABLED YET!
   #[PodWeaver]
-  #config_plugin = @FLORA
+  #config_plugin = @BioPerl
 
 =head1 CONFIGURATION
 
@@ -167,9 +167,9 @@ has trailing_whitespace => (
 #}
 #
 #has weaver_config_plugin => (
-#    is      => 'ro',
+#    is      => 'lazy',
 #    isa     => Str,
-#    default => '@FLORA',  # TODO: needs to change
+#    default => '@BioPerl',  # TODO: needs to be created
 #);
 #
 #my $map_tc = Map[

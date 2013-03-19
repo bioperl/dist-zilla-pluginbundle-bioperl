@@ -25,8 +25,10 @@ with 'Dist::Zilla::Role::PluginBundle::Easy';
 This is the L<Dist::Zilla> configuration for the BioPerl project. It is roughly
 equivalent to:
 
-  [@Basic]              ; the basic to maintain and release CPAN distros
-
+  [@Filter]
+  -bundle = @Basic      ; the basic to maintain and release CPAN distros
+  -remove = Readme      ; avoid conflict since we already have a README file
+  
   [MetaConfig]          ; summarize Dist::Zilla configuration on distribution
   [MetaJSON]            ; produce a META.json
   [PkgVersion]          ; add a $version to the modules
@@ -206,7 +208,10 @@ has trailing_whitespace => (
 
 sub configure {
     my $self = shift;
-    $self->add_bundle('@Basic');
+    $self->add_bundle('@Filter' => {
+        '-bundle' => '@Basic',
+        '-remove' => ['Readme'],
+    });
 
     $self->add_plugins(qw(
         MetaConfig

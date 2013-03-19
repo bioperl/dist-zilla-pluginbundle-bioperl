@@ -1,4 +1,10 @@
+Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
+-----------------------------------------------------------------------------
+
 {{$NEXT}}
+  * [Readme] is now filtered from [@Basic] since most bioperl distributions
+    already have a README or README.md file and if teh first already exists, it
+    conflicts with [Readme].
   * Removed the option disable_pod_coverage_tests. The use of [@Filter]
     is recommended instead.
   * Removed disable_trailing_whitespace_tests. Set `trailing_whitespace = 0`

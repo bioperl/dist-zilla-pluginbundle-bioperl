@@ -32,10 +32,6 @@ equivalent to:
   [PkgVersion]          ; add a $version to the modules
   [PodSyntaxTests]      ; create a release test for Pod syntax
   [NoTabsTests]         ; create a release tests making sure hard tabs aren't used
-  [NextRelease]         ; update release number on Changes file
-  [Git::Check]          ; check working path for any uncommitted stuff
-  [Git::Commit]         ; commit the dzil-generated stuff
-  [Git::Tag]            ; tag our new release
   [Test::Compile]       ; test syntax of all modules
   [PodCoverageTests]    ; create release test for Pod coverage
   [AutoPrereqs]         ; automatically find the dependencies
@@ -57,6 +53,17 @@ equivalent to:
   
   [PodWeaver]
   config_plugin = @BioPerl
+  
+  [NextRelease]         ; update release number on Changes file
+  [Git::Check]          ; check working path for any uncommitted stuff
+  allow_dirty = Changes
+  allow_dirty = dist.ini
+  [Git::Commit]         ; commit the dzil-generated stuff
+  allow_dirty = Changes
+  allow_dirty = dist.ini
+  [Git::Tag]            ; tag our new release
+  tag_format  = %N-v%v
+  tag_message = %N-v%v
 
 =head1 CONFIGURATION
 
@@ -95,6 +102,11 @@ Same option used by the L<Dist::Zilla::Plugin::Authority>
 
 Same option used by the L<Dist::Zilla::Plugin::EOLTests>
 
+=item allow_dirty
+
+Same option used by the L<Dist::Zilla::Plugin::Git::Commit> and
+L<Dist::Zilla::Plugin::Git::Check>
+
 =back
 
 =cut
@@ -108,6 +120,7 @@ sub get_value {
         'bugtracker.mailto'   => 'bioperl-l@bioperl.org',
         'authority'           => 'cpan:CJFIELDS',
         'trailing_whitespace' => 1,
+        'allow_dirty'         => ['Changes', 'dist.ini'],
     );
     return $self->payload->{$accessor} || $defaults{$accessor};
 }
@@ -149,8 +162,16 @@ has trailing_whitespace => (
     default => sub { shift->get_value('trailing_whitespace') }
 );
 
+sub mvp_multivalue_args { qw( allow_dirty ) }
+has allow_dirty => (
+    is      => 'lazy',
+    isa     => ArrayRef,
+    default => sub { shift->get_value('allow_dirty') }
+);
+
 sub configure {
     my $self = shift;
+
     $self->add_bundle('@Filter' => {
         '-bundle' => '@Basic',
         '-remove' => ['Readme'],
@@ -163,13 +184,15 @@ sub configure {
         PodSyntaxTests
         NoTabsTests
         NextRelease
-        Git::Check
-        Git::Commit
-        Git::Tag
         Test::Compile
         PodCoverageTests
         AutoPrereqs
     ));
+
+    my @allow_dirty;
+    foreach (@{$self->allow_dirty}) {
+        push (@allow_dirty, 'allow_dirty', $_);
+    }
 
     $self->add_plugins(
         [AutoMetaResources => [
@@ -191,6 +214,16 @@ sub configure {
         [PodWeaver => {
             config_plugin => '@BioPerl',
         }],
+        ['Git::Check' => [
+            @allow_dirty,
+        ]],
+        ['Git::Commit' => [
+            @allow_dirty,
+        ]],
+        ['Git::Tag' => [
+            tag_format  => '%N-v%v',
+            tag_message => '%N-v%v',
+        ]],
     );
 
 }

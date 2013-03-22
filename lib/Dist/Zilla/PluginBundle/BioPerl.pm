@@ -6,9 +6,7 @@ use Moose 1.00;
 use MooseX::AttributeShortcuts;
 use MooseX::Types::URI qw(Uri);
 use MooseX::Types::Email qw(EmailAddress);
-use MooseX::Types::Moose qw(Bool Str CodeRef);
-#use Moose::Util::TypeConstraints;
-#use MooseX::Types::Structured 0.20 qw(Map Dict Optional);
+use MooseX::Types::Moose qw(ArrayRef Bool Str);
 use namespace::autoclean;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
 
@@ -57,9 +55,8 @@ equivalent to:
   [EOLTests]            ; create release tests for correct line endings
   trailing_whitespace   = 1
   
-  # NOT ENABLED YET!
-  #[PodWeaver]
-  #config_plugin = @BioPerl
+  [PodWeaver]
+  config_plugin = @BioPerl
 
 =head1 CONFIGURATION
 
@@ -152,60 +149,6 @@ has trailing_whitespace => (
     default => sub { shift->get_value('trailing_whitespace') }
 );
 
-##
-## these commented blocks of text may be used one day to deal with podweaver
-##
-
-#has is_task => (
-#    is      => 'ro',
-#    isa     => Bool,
-#    lazy    => 1,
-#    builder => '_build_is_task',
-#);
-#
-#sub _build_is_task {
-#    my $self = shift;
-#    return $self->dist =~ /^Task-/ ? 1 : 0;
-#}
-#
-#has weaver_config_plugin => (
-#    is      => 'lazy',
-#    isa     => Str,
-#    default => '@BioPerl',  # TODO: needs to be created
-#);
-#
-#my $map_tc = Map[
-#    Str, Dict[
-#        pattern     => CodeRef,
-#        web_pattern => CodeRef,
-#        type        => Optional[Str],
-#        mangle      => Optional[CodeRef],
-#    ]
-#];
-#
-#coerce $map_tc, from Map[
-#    Str, Dict[
-#        pattern     => Str|CodeRef,
-#        web_pattern => Str|CodeRef,
-#        type        => Optional[Str],
-#        mangle      => Optional[CodeRef],
-#    ]
-#], via {
-#    my %in = %{ $_ };
-#    return { map {
-#        my $k = $_;
-#        ($k => {
-#            %{ $in{$k} },
-#            (map {
-#                my $v = $_;
-#                (ref $in{$k}->{$v} ne 'CODE'
-#                     ? ($v => sub { $in{$k}->{$v} })
-#                     : ()),
-#            } qw(pattern web_pattern)),
-#        })
-#    } keys %in };
-#};
-
 sub configure {
     my $self = shift;
     $self->add_bundle('@Filter' => {
@@ -245,18 +188,11 @@ sub configure {
         [EOLTests => {
             trailing_whitespace => $self->trailing_whitespace,
         }],
+        [PodWeaver => {
+            config_plugin => '@BioPerl',
+        }],
     );
 
-    # TODO: figure out and migrate to a Bioperl-wide PodWeaver config
-    # plugin.  this will require deleting large amounts of POD
-    # boilerplate from the existing codebase. -- rbuels
-    # $self->is_task
-    #     ? $self->add_plugins('TaskWeaver')
-    #     : $self->add_plugins(
-    #           [PodWeaver => {
-    #               config_plugin => $self->weaver_config_plugin,
-    #           }],
-    #       );
 }
 
 __PACKAGE__->meta->make_immutable;

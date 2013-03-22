@@ -2,6 +2,8 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 -----------------------------------------------------------------------------
 
 {{$NEXT}}
+  * Created a new Pod::Weaver plugin bundle for BioPerl which is used as default
+    by Bioperl's Dist::Zilla pluginbundle.
   * [Readme] is now filtered from [@Basic] since most bioperl distributions
     already have a README or README.md file and if teh first already exists, it
     conflicts with [Readme].

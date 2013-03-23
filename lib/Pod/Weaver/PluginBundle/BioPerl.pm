@@ -1,6 +1,10 @@
 package Pod::Weaver::PluginBundle::BioPerl;
+use utf8;
 
 # ABSTRACT: Configure your POD like Bioperl does
+# AUTHOR:   Carnë Draug <carandraug+dev@gmail.com
+# OWNER:    Carnë Draug
+# LICENSE:  Perl_5
 
 use strict;
 use warnings;
@@ -28,13 +32,13 @@ equivalent to:
   [@CorePrep]
   [Name]
   [Version]
-  
+
   [Region / prelude]
-  
+
   [Generic / SYNOPSIS]
   [Generic / DESCRIPTION]
   [Generic / OVERVIEW]
-  
+
   [Collect / ATTRIBUTES]
   command = attr
   [Collect / METHODS]
@@ -43,11 +47,11 @@ equivalent to:
   command = func
   [Collect / INTERNAL METHODS]
   command = internal
-  
+
   [Leftovers]
-  
+
   [Region / postlude]
-  
+
   [GenerateSection / FEEDBACK]
   head = 1
   [GenerateSection / Mailing lists]
@@ -59,7 +63,19 @@ equivalent to:
   [GenerateSection / Reporting bugs]
   head = 2
   text = a rather long text
+  [Legal::Complicated]
 
+  [-Encoding]
+  encoding = utf-8
+
+  [-Transformer]
+  transformer = List
+
+  [-EnsureUniqueSections]
+
+=cut
+
+=for Pod::Coverage _exp mvp_bundle_config
 =cut
 
 sub _exp { Pod::Weaver::Config::Assembler->expand_package($_[0]) }
@@ -89,8 +105,18 @@ sub mvp_bundle_config {
     ['Mailing lists',      _exp('GenerateSection'), { head => 2, text => fback_lists()     } ],
     ['Support',            _exp('GenerateSection'), { head => 2, text => fback_support()   } ],
     ['Reporting bugs',     _exp('GenerateSection'), { head => 2, text => fback_reporting() } ],
+    ['@BioPerl/Legal',     _exp('Legal::Complicated'), {}                                     ],
+
+    ['Encoding',           _exp('-Encoding'),       { encoding => 'utf-8' }  ],
+
+    ['@BioPerl/List',      _exp('-Transformer'),    { transformer => 'List'} ],
+
+    ['EnsureUniqueSections', _exp('-EnsureUniqueSections'), {} ],
   )
 };
+
+=for Pod::Coverage fback_lists fback_support fback_reporting
+=cut
 
 sub fback_lists {
   return ["User feedback is an integral part of the evolution of this and other",

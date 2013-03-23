@@ -1,6 +1,14 @@
 package Dist::Zilla::PluginBundle::BioPerl;
+use utf8;
 
 # ABSTRACT: Build your distributions like Bioperl does
+# AUTHOR:   Florian Ragwitz <rafl@debian.org>
+# AUTHOR:   Sheena Scroggins
+# AUTHOR:   Carnë Draug <carandraug+dev@gmail.com
+# OWNER:    Florian Ragwitz
+# OWNER:    Sheena Scroggins
+# OWNER:    Carnë Draug
+# LICENSE:  Perl_5
 
 use Moose 1.00;
 use MooseX::AttributeShortcuts;
@@ -15,7 +23,7 @@ with 'Dist::Zilla::Role::PluginBundle::Easy';
   # dist.ini
   name = Dist-Zilla-Plugin-BioPerl
   ...
-  
+
   [@BioPerl]
 
 =head1 DESCRIPTION
@@ -26,7 +34,7 @@ equivalent to:
   [@Filter]
   -bundle = @Basic      ; the basic to maintain and release CPAN distros
   -remove = Readme      ; avoid conflict since we already have a README file
-  
+
   [MetaConfig]          ; summarize Dist::Zilla configuration on distribution
   [MetaJSON]            ; produce a META.json
   [PkgVersion]          ; add a $version to the modules
@@ -34,26 +42,27 @@ equivalent to:
   [NoTabsTests]         ; create a release tests making sure hard tabs aren't used
   [Test::Compile]       ; test syntax of all modules
   [PodCoverageTests]    ; create release test for Pod coverage
+  [MojibakeTests]       ; create release test for correct encoding
   [AutoPrereqs]         ; automatically find the dependencies
-  
+
   [AutoMetaResources]   ; automatically fill resources fields on metadata
   repository.github     = user:bioperl
   homepage              = http://search.cpan.org/dist/${dist}
-  
+
   [MetaResources]       ; fill resources fields on metadata
   bugtracker.web        = https://redmine.open-bio.org/projects/bioperl/
   bugtracker.mailto     = bioperl-l@bioperl.org
-  
+
   [Authority]           ; put the $AUTHORITY line in the modules and metadata
-  authority             = cpan:CJFIELDS
+  authority             = cpan:BIOPERLML
   do_metadata           = 1
-  
+
   [EOLTests]            ; create release tests for correct line endings
   trailing_whitespace   = 1
-  
+
   [PodWeaver]
   config_plugin = @BioPerl
-  
+
   [NextRelease]         ; update release number on Changes file
   [Git::Check]          ; check working path for any uncommitted stuff
   allow_dirty = Changes
@@ -76,39 +85,26 @@ please consider patching this bundle.
 In some cases, this bundle will also perform some sanity checks before passing
 the value to the original plugin.
 
-=over
-
-=item homepage
-
+=for :list
+* homepage
 Same option used by the L<Dist::Zilla::Plugin::AutoMetaResources>
-
-=item repository.github
-
+* repository.github
 Same option used by the L<Dist::Zilla::Plugin::AutoMetaResources>
-
-=item bugtracker.web
-
+* bugtracker.web
 Same option used by the L<Dist::Zilla::Plugin::MetaResources>
-
-=item bugtracker.mailto
-
+* bugtracker.mailto
 Same option used by the L<Dist::Zilla::Plugin::MetaResources>
-
-=item authority
-
+* authority
 Same option used by the L<Dist::Zilla::Plugin::Authority>
-
-=item trailing_whitespace
-
+* trailing_whitespace
 Same option used by the L<Dist::Zilla::Plugin::EOLTests>
-
-=item allow_dirty
-
+* allow_dirty
 Same option used by the L<Dist::Zilla::Plugin::Git::Commit> and
 L<Dist::Zilla::Plugin::Git::Check>
 
-=back
+=cut
 
+=for Pod::Coverage get_value
 =cut
 
 sub get_value {
@@ -118,7 +114,7 @@ sub get_value {
         'repository.github'   => 'user:bioperl',
         'bugtracker.web'      => 'https://redmine.open-bio.org/projects/bioperl/',
         'bugtracker.mailto'   => 'bioperl-l@bioperl.org',
-        'authority'           => 'cpan:CJFIELDS',
+        'authority'           => 'cpan:BIOPERLML',
         'trailing_whitespace' => 1,
         'allow_dirty'         => ['Changes', 'dist.ini'],
     );
@@ -162,12 +158,18 @@ has trailing_whitespace => (
     default => sub { shift->get_value('trailing_whitespace') }
 );
 
+=for Pod::Coverage mvp_multivalue_args
+=cut
+
 sub mvp_multivalue_args { qw( allow_dirty ) }
 has allow_dirty => (
     is      => 'lazy',
     isa     => ArrayRef,
     default => sub { shift->get_value('allow_dirty') }
 );
+
+=for Pod::Coverage configure
+=cut
 
 sub configure {
     my $self = shift;
@@ -186,6 +188,7 @@ sub configure {
         NextRelease
         Test::Compile
         PodCoverageTests
+        MojibakeTests
         AutoPrereqs
     ));
 

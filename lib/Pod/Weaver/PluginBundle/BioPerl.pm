@@ -64,6 +64,7 @@ equivalent to:
   head = 2
   text = a rather long text
   [Legal::Complicated]
+  [Contributors]
 
   [-Encoding]
   encoding = utf-8
@@ -105,7 +106,8 @@ sub mvp_bundle_config {
     ['Mailing lists',      _exp('GenerateSection'), { head => 2, text => fback_lists()     } ],
     ['Support',            _exp('GenerateSection'), { head => 2, text => fback_support()   } ],
     ['Reporting bugs',     _exp('GenerateSection'), { head => 2, text => fback_reporting() } ],
-    ['@BioPerl/Legal',     _exp('Legal::Complicated'), {}                                     ],
+    ['@BioPerl/Legal',     _exp('Legal::Complicated'), {}                                    ],
+    ['@BioPerl/Contributors', _exp('Contributors'), {}                                       ],
 
     ['Encoding',           _exp('-Encoding'),       { encoding => 'utf-8' }  ],
 

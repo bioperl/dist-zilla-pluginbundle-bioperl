@@ -3,7 +3,7 @@ use utf8;
 
 # ABSTRACT: Configure your POD like Bioperl does
 # AUTHOR:   Carnë Draug <carandraug+dev@gmail.com
-# OWNER:    Carnë Draug
+# OWNER:    2013 Carnë Draug
 # LICENSE:  Perl_5
 
 use strict;

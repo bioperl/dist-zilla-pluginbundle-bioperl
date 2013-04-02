@@ -5,9 +5,9 @@ use utf8;
 # AUTHOR:   Florian Ragwitz <rafl@debian.org>
 # AUTHOR:   Sheena Scroggins
 # AUTHOR:   Carnë Draug <carandraug+dev@gmail.com
-# OWNER:    Florian Ragwitz
-# OWNER:    Sheena Scroggins
-# OWNER:    Carnë Draug
+# OWNER:    2010 Florian Ragwitz
+# OWNER:    2011 Sheena Scroggins
+# OWNER:    2013 Carnë Draug
 # LICENSE:  Perl_5
 
 use Moose 1.00;

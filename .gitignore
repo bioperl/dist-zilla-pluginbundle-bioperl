@@ -1,4 +1,3 @@
 .*
 !.gitignore
-Dist-Zilla-PluginBundle-FLORA-*
-Debian_CPANTS.txt
+Dist-Zilla-PluginBundle-BioPerl-*

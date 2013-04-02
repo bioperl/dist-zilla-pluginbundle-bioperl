@@ -2,6 +2,8 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 -----------------------------------------------------------------------------
 
 {{$NEXT}}
+
+0.20      2013-04-02 06:09:17 Europe/Dublin
   * The default authority for the distribution is now cpan:BIOPERLML.
   * Included the [MojibakeTests] plugin to check for correct encoding.
   * The Git will commit changes to the Changes and dist.ini file as part of the

@@ -2,6 +2,8 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 -----------------------------------------------------------------------------
 
 {{$NEXT}}
+  * Updated list of dependencies (plugins from the BioPerl bundle which
+    are implicit dependencies).
 
 0.20      2013-04-02 06:09:17 Europe/Dublin
   * The default authority for the distribution is now cpan:BIOPERLML.

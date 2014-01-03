@@ -66,8 +66,8 @@ equivalent to:
   [Legal::Complicated]
   [Contributors]
 
-  [-Encoding]
-  encoding = utf-8
+  [-SingleEncoding]
+  encoding = UTF-8
 
   [-Transformer]
   transformer = List
@@ -109,7 +109,7 @@ sub mvp_bundle_config {
     ['@BioPerl/Legal',     _exp('Legal::Complicated'), {}                                    ],
     ['@BioPerl/Contributors', _exp('Contributors'), {}                                       ],
 
-    ['Encoding',           _exp('-Encoding'),       { encoding => 'utf-8' }  ],
+    ['SingleEncoding',     _exp('-SingleEncoding'), { encoding => 'UTF-8' }  ],
 
     ['@BioPerl/List',      _exp('-Transformer'),    { transformer => 'List'} ],
 

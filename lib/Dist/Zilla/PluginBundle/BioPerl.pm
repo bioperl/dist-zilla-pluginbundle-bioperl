@@ -48,10 +48,10 @@ equivalent to:
 
   [AutoMetaResources]   ; automatically fill resources fields on metadata
   repository.github     = user:bioperl
-  homepage              = http://search.cpan.org/dist/${dist}
+  homepage              = https://metacpan.org/release/${dist}
 
   [MetaResources]       ; fill resources fields on metadata
-  bugtracker.web        = https://redmine.open-bio.org/projects/bioperl/
+  bugtracker.web        = https://github.com/bioperl/${dist}
   bugtracker.mailto     = bioperl-l@bioperl.org
 
   [Authority]           ; put the $AUTHORITY line in the modules and metadata
@@ -111,9 +111,9 @@ L<Dist::Zilla::Plugin::Git::Check>
 sub get_value {
     my ($self, $accessor) = @_;
     my %defaults = (
-        'homepage'            => 'http://search.cpan.org/dist/%{dist}',
+        'homepage'            => 'https://metacpan.org/release/%{dist}',
         'repository.github'   => 'user:bioperl',
-        'bugtracker.web'      => 'https://redmine.open-bio.org/projects/bioperl/',
+        'bugtracker.web'      => 'https://github.com/bioperl/%{dist}',
         'bugtracker.mailto'   => 'bioperl-l@bioperl.org',
         'authority'           => 'cpan:BIOPERLML',
         'trailing_whitespace' => 1,

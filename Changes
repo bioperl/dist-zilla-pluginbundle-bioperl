@@ -4,6 +4,10 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 {{$NEXT}}
   * Updated list of dependencies (plugins from the BioPerl bundle which
     are implicit dependencies).
+  * Add roles to remove unwanted plugins if requested.
+  * Add proper dependencies if they are picked up, and bootstrap 
+  * Redirect URL to MetaCPAN instead of search.cpan.org.
+  * Point to GitHub as main bug tracker
 
 0.20      2013-04-02 06:09:17 Europe/Dublin
   * The default authority for the distribution is now cpan:BIOPERLML.

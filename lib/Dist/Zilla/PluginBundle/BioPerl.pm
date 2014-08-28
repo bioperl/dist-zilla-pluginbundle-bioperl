@@ -5,6 +5,7 @@ use utf8;
 # AUTHOR:   Florian Ragwitz <rafl@debian.org>
 # AUTHOR:   Sheena Scroggins
 # AUTHOR:   Carnë Draug <carandraug+dev@gmail.com
+# AUTHOR:   Chris Fields <cjfields1@gmail.com
 # OWNER:    2010 Florian Ragwitz
 # OWNER:    2011 Sheena Scroggins
 # OWNER:    2013 Carnë Draug
@@ -39,7 +40,7 @@ equivalent to:
   [MetaJSON]            ; produce a META.json
   [PkgVersion]          ; add a $version to the modules
   [PodSyntaxTests]      ; create a release test for Pod syntax
-  [NoTabsTests]         ; create a release tests making sure hard tabs aren't used
+  [Test::NoTabs]        ; create a release tests making sure hard tabs aren't used
   [Test::Compile]       ; test syntax of all modules
   [PodCoverageTests]    ; create release test for Pod coverage
   [MojibakeTests]       ; create release test for correct encoding
@@ -184,7 +185,7 @@ sub configure {
         MetaJSON
         PkgVersion
         PodSyntaxTests
-        NoTabsTests
+        Test::NoTabs
         NextRelease
         Test::Compile
         PodCoverageTests

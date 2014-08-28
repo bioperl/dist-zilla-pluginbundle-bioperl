@@ -2,6 +2,8 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 -----------------------------------------------------------------------------
 
 {{$NEXT}}
+
+0.21      2014-08-28 09:14:19-05:00 America/Chicago
   * Updated list of dependencies (plugins from the BioPerl bundle which
     are implicit dependencies).
   * Add roles to remove unwanted plugins if requested.

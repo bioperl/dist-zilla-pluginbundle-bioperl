@@ -2,6 +2,7 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 -----------------------------------------------------------------------------
 
 {{$NEXT}}
+  * Version bump to deal with failed submission, no code changes
 
 0.21      2014-08-28 09:14:19-05:00 America/Chicago
   * Updated list of dependencies (plugins from the BioPerl bundle which

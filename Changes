@@ -2,6 +2,8 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 -----------------------------------------------------------------------------
 
 {{$NEXT}}
+
+0.23      2014-09-05 09:46:02-05:00 America/Chicago
   * Add [ExtraTests] in cases where we want to only run tests for release
 
 0.22      2014-08-30 01:12:04-05:00 America/Chicago

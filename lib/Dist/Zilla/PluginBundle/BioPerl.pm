@@ -45,6 +45,7 @@ equivalent to:
   [PodCoverageTests]    ; create release test for Pod coverage
   [MojibakeTests]       ; create release test for correct encoding
   [AutoPrereqs]         ; automatically find the dependencies
+  [RunExtraTests]       ; run tests /xt directory, normally only needed for release
 
   [AutoMetaResources]   ; automatically fill resources fields on metadata
   repository.github     = user:bioperl
@@ -74,6 +75,14 @@ equivalent to:
   [Git::Tag]            ; tag our new release
   tag_format  = %N-v%v
   tag_message = %N-v%v
+
+In addition, this also has two roles, L<Dist::Zilla::PluginBundle::PluginRemover> and
+Dist::Zilla::PluginBundle::Config::Slice, so one could do something like this for
+problematic distributions:
+
+  [@BioPerl]
+  -remove = MojibakeTests
+  -remove = PodSyntaxTests
 
 =head1 CONFIGURATION
 
@@ -191,6 +200,7 @@ sub configure {
         PodCoverageTests
         MojibakeTests
         AutoPrereqs
+        RunExtraTests
     ));
 
     my @allow_dirty;

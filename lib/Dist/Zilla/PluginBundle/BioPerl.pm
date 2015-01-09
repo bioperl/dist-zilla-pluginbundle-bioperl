@@ -59,8 +59,7 @@ equivalent to:
   authority             = cpan:BIOPERLML
   do_metadata           = 1
 
-  [EOLTests]            ; create release tests for correct line endings
-  trailing_whitespace   = 1
+  [Test::EOL]           ; create release tests for correct line endings
 
   [PodWeaver]
   config_plugin = @BioPerl
@@ -222,7 +221,7 @@ sub configure {
             authority   => $self->authority,
             do_metadata => 1,
         }],
-        [EOLTests => {
+        ['Test::EOL' => {
             trailing_whitespace => $self->trailing_whitespace,
         }],
         [PodWeaver => {

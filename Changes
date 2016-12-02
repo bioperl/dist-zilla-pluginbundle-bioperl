@@ -3,6 +3,10 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 
 {{$NEXT}}
   * Replace use of deprecated [EOLTests] with [Test::EOL]
+  * Replace use of bugtracker.web from [MetaResources] with bugtracker.github
+    from [AutoMetaResources].  Note that [MetaResources] was not expand
+    %{dist} on bugtracker.web and therefore previous versions had incorrect
+    links to the bugtracker.
 
 0.23      2014-09-05 09:46:02-05:00 America/Chicago
   * Add [ExtraTests] in cases where we want to only run tests for release

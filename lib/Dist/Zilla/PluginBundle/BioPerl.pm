@@ -13,7 +13,6 @@ use utf8;
 
 use Moose 1.00;
 use MooseX::AttributeShortcuts;
-use MooseX::Types::URI qw(Uri);
 use MooseX::Types::Email qw(EmailAddress);
 use MooseX::Types::Moose qw(ArrayRef Bool Str);
 use namespace::autoclean;
@@ -49,10 +48,10 @@ equivalent to:
 
   [AutoMetaResources]   ; automatically fill resources fields on metadata
   repository.github     = user:bioperl
+  bugtracker.github     = user:bioperl
   homepage              = https://metacpan.org/release/${dist}
 
   [MetaResources]       ; fill resources fields on metadata
-  bugtracker.web        = https://github.com/bioperl/${dist}
   bugtracker.mailto     = bioperl-l@bioperl.org
 
   [Authority]           ; put the $AUTHORITY line in the modules and metadata
@@ -99,8 +98,8 @@ the value to the original plugin.
 Same option used by the L<Dist::Zilla::Plugin::AutoMetaResources>
 * repository.github
 Same option used by the L<Dist::Zilla::Plugin::AutoMetaResources>
-* bugtracker.web
-Same option used by the L<Dist::Zilla::Plugin::MetaResources>
+* bugtracker.github
+Same option used by the L<Dist::Zilla::Plugin::AutoMetaResources>
 * bugtracker.mailto
 Same option used by the L<Dist::Zilla::Plugin::MetaResources>
 * authority
@@ -121,7 +120,7 @@ sub get_value {
     my %defaults = (
         'homepage'            => 'https://metacpan.org/release/%{dist}',
         'repository.github'   => 'user:bioperl',
-        'bugtracker.web'      => 'https://github.com/bioperl/%{dist}',
+        'bugtracker.github'   => 'user:bioperl',
         'bugtracker.mailto'   => 'bioperl-l@bioperl.org',
         'authority'           => 'cpan:BIOPERLML',
         'trailing_whitespace' => 1,
@@ -142,11 +141,10 @@ has repository_github => (
     default => sub { shift->get_value('repository.github') }
 );
 
-has bugtracker_web => (
+has bugtracker_github => (
     is      => 'lazy',
-    isa     => Uri,
-    coerce  => 1,
-    default => sub { shift->get_value('bugtracker.web') }
+    isa     => Str,
+    default => sub { shift->get_value('bugtracker.github') }
 );
 
 has bugtracker_mailto => (
@@ -211,10 +209,9 @@ sub configure {
         [AutoMetaResources => [
             'repository.github' => $self->repository_github,
             'homepage'          => $self->homepage,
+            'bugtracker.github' => $self->bugtracker_github,
         ]],
-        ## AutoMetaResources does not let us configure the bugtracker
         [MetaResources => [
-            'bugtracker.web'    => $self->bugtracker_web,
             'bugtracker.mailto' => $self->bugtracker_mailto,
         ]],
         [Authority => {

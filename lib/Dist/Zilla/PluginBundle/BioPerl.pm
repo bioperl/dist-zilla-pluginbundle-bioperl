@@ -8,7 +8,7 @@ use utf8;
 # AUTHOR:   Chris Fields <cjfields1@gmail.com
 # OWNER:    2010 Florian Ragwitz
 # OWNER:    2011 Sheena Scroggins
-# OWNER:    2013 Carnë Draug
+# OWNER:    2013-2017 Carnë Draug
 # LICENSE:  Perl_5
 
 use Moose 1.00;

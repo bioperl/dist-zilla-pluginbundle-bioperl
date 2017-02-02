@@ -84,6 +84,34 @@ problematic distributions:
   -remove = MojibakeTests
   -remove = PodSyntaxTests
 
+=head1 Pushing releases
+
+With this PluginBundle, there's a lot of things happening
+automatically. It might not be clear what actually needs to be done
+and what will be done automatically unless you are already familiar
+with all the plugins being used.  Assuming that F<Changes> is up
+to date (you should be updating F<Changes> as the changes are made
+and not when preparing a release.  If you need to add notes to that
+file, then do it do it at the same time you bump the version number in
+F<dist.ini>), the following steps will make a release:
+
+=for :list
+1. Make sure the working directory is clean with `git status'.
+2. Run `dzil test --all'
+3. Edit dist.ini to bump the version number only.
+4. Run `dzil release'
+5. Run `git push --tags'
+
+These steps will automatically do the following:
+
+=for :list
+* Modify F<Changes> with the version number and time of release.
+* Make a git commit with the changes to F<Changes> and F<dist.ini>
+  using a standard commit message.
+* Add a lightweight git tag for the release.
+* Run the tests (including a series of new tests for maintainers only)
+  and push release to CPAN.
+
 =head1 CONFIGURATION
 
 Use the L<Dist::Zilla::PluginBundle::Filter> to filter any undesired plugin

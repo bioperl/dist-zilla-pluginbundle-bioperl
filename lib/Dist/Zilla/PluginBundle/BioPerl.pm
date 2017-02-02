@@ -49,7 +49,6 @@ equivalent to:
   [PodCoverageTests]    ; create release test for Pod coverage
   [MojibakeTests]       ; create release test for correct encoding
   [AutoPrereqs]         ; automatically find the dependencies
-  [RunExtraTests]       ; run tests /xt directory, normally only needed for release
 
   [AutoMetaResources]   ; automatically fill resources fields on metadata
   repository.github     = user:bioperl
@@ -60,6 +59,7 @@ equivalent to:
   bugtracker.mailto     = bioperl-l@bioperl.org
 
   [Test::EOL]           ; create release tests for correct line endings
+  trailing_whitespace = 1
 
   [PodWeaver]
   config_plugin = @BioPerl
@@ -184,12 +184,10 @@ sub configure {
         PkgVersion
         PodSyntaxTests
         Test::NoTabs
-        NextRelease
         Test::Compile
         PodCoverageTests
         MojibakeTests
         AutoPrereqs
-        RunExtraTests
     ));
 
     my @allow_dirty;
@@ -212,6 +210,13 @@ sub configure {
         [PodWeaver => {
             config_plugin => '@BioPerl',
         }],
+    );
+
+    $self->add_plugins(qw(
+        NextRelease
+    ));
+
+    $self->add_plugins(
         ['Git::Check' => [
             @allow_dirty,
         ]],
@@ -223,7 +228,6 @@ sub configure {
             tag_message => '%N-v%v',
         ]],
     );
-
 }
 
 __PACKAGE__->meta->make_immutable;

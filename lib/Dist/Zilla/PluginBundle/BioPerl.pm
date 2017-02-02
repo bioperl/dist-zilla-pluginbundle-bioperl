@@ -59,10 +59,6 @@ equivalent to:
   [MetaResources]       ; fill resources fields on metadata
   bugtracker.mailto     = bioperl-l@bioperl.org
 
-  [Authority]           ; put the $AUTHORITY line in the modules and metadata
-  authority             = cpan:BIOPERLML
-  do_metadata           = 1
-
   [Test::EOL]           ; create release tests for correct line endings
 
   [PodWeaver]
@@ -107,8 +103,6 @@ Same option used by the L<Dist::Zilla::Plugin::AutoMetaResources>
 Same option used by the L<Dist::Zilla::Plugin::AutoMetaResources>
 * bugtracker.mailto
 Same option used by the L<Dist::Zilla::Plugin::MetaResources>
-* authority
-Same option used by the L<Dist::Zilla::Plugin::Authority>
 * trailing_whitespace
 Same option used by the L<Dist::Zilla::Plugin::EOLTests>
 * allow_dirty
@@ -127,7 +121,6 @@ sub get_value {
         'repository.github'   => 'user:bioperl',
         'bugtracker.github'   => 'user:bioperl',
         'bugtracker.mailto'   => 'bioperl-l@bioperl.org',
-        'authority'           => 'cpan:BIOPERLML',
         'trailing_whitespace' => 1,
         'allow_dirty'         => ['Changes', 'dist.ini'],
     );
@@ -156,12 +149,6 @@ has bugtracker_mailto => (
     is      => 'lazy',
     isa     => EmailAddress,
     default => sub { shift->get_value('bugtracker.mailto') }
-);
-
-has authority => (
-    is      => 'lazy',
-    isa     => Str,
-    default => sub { shift->get_value('authority') }
 );
 
 has trailing_whitespace => (
@@ -219,10 +206,6 @@ sub configure {
         [MetaResources => [
             'bugtracker.mailto' => $self->bugtracker_mailto,
         ]],
-        [Authority => {
-            authority   => $self->authority,
-            do_metadata => 1,
-        }],
         ['Test::EOL' => {
             trailing_whitespace => $self->trailing_whitespace,
         }],

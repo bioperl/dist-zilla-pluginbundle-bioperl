@@ -16,7 +16,12 @@ use MooseX::AttributeShortcuts;
 use MooseX::Types::Email qw(EmailAddress);
 use MooseX::Types::Moose qw(ArrayRef Bool Str);
 use namespace::autoclean;
-with qw/Dist::Zilla::Role::PluginBundle::Easy Dist::Zilla::Role::PluginBundle::PluginRemover Dist::Zilla::Role::PluginBundle::Config::Slicer/;
+
+with qw(
+  Dist::Zilla::Role::PluginBundle::Easy
+  Dist::Zilla::Role::PluginBundle::PluginRemover
+  Dist::Zilla::Role::PluginBundle::Config::Slicer
+);
 
 =head1 SYNOPSIS
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use utf8;
 
-# AUTHOR:   Carnë Draug <carandraug+dev@gmail.com
+# AUTHOR:   Carnë Draug <carandraug+dev@gmail.com>
 # OWNER:    2017 Carnë Draug
 # LICENSE:  Perl_5
 

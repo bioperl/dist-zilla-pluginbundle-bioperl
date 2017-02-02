@@ -5,8 +5,8 @@ use utf8;
 # ABSTRACT: Build your distributions like Bioperl does
 # AUTHOR:   Florian Ragwitz <rafl@debian.org>
 # AUTHOR:   Sheena Scroggins
-# AUTHOR:   Carnë Draug <carandraug+dev@gmail.com
-# AUTHOR:   Chris Fields <cjfields1@gmail.com
+# AUTHOR:   Carnë Draug <carandraug+dev@gmail.com>
+# AUTHOR:   Chris Fields <cjfields1@gmail.com>
 # OWNER:    2010 Florian Ragwitz
 # OWNER:    2011 Sheena Scroggins
 # OWNER:    2013-2017 Carnë Draug

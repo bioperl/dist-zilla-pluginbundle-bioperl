@@ -12,7 +12,7 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
   * Added a test unit to the pluginbundle.
 
 0.23      2014-09-05 09:46:02-05:00 America/Chicago
-  * Add [ExtraTests] in cases where we want to only run tests for release
+  * Add [RunExtraTests] in cases where we want to only run tests for release
 
 0.22      2014-08-30 01:12:04-05:00 America/Chicago
   * Version bump to deal with failed submission, no code changes

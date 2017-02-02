@@ -1,4 +1,5 @@
 package Dist::Zilla::PluginBundle::BioPerl;
+
 use utf8;
 
 # ABSTRACT: Build your distributions like Bioperl does

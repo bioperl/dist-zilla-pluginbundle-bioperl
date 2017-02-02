@@ -1,4 +1,5 @@
 package Pod::Weaver::PluginBundle::BioPerl;
+
 use utf8;
 
 # ABSTRACT: Configure your POD like Bioperl does

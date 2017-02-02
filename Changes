@@ -9,6 +9,7 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
     links to the bugtracker.
   * Removed use of Authority plugin as it is now obsolete in perl5.
   * Removed [RunExtraTests].  Use `dzil test -all'.  See also `dzil smoke'.
+  * Added a test unit to the pluginbundle.
 
 0.23      2014-09-05 09:46:02-05:00 America/Chicago
   * Add [ExtraTests] in cases where we want to only run tests for release

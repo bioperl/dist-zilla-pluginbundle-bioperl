@@ -8,6 +8,7 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
     %{dist} on bugtracker.web and therefore previous versions had incorrect
     links to the bugtracker.
   * Removed use of Authority plugin as it is now obsolete in perl5.
+  * Removed [RunExtraTests].  Use `dzil test -all'.  See also `dzil smoke'.
 
 0.23      2014-09-05 09:46:02-05:00 America/Chicago
   * Add [ExtraTests] in cases where we want to only run tests for release
@@ -19,7 +20,7 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
   * Updated list of dependencies (plugins from the BioPerl bundle which
     are implicit dependencies).
   * Add roles to remove unwanted plugins if requested.
-  * Add proper dependencies if they are picked up, and bootstrap 
+  * Add proper dependencies if they are picked up, and bootstrap.
   * Redirect URL to MetaCPAN instead of search.cpan.org.
   * Point to GitHub as main bug tracker
 

@@ -2,6 +2,8 @@ Summary of important user-visible changes for dist-zilla-pluginbundle-Bioperl
 -----------------------------------------------------------------------------
 
 {{$NEXT}}
+
+0.25      2017-02-18 19:06:59+00:00 Europe/London
   * Update broken link on Feedback section to a page about the mailing lists.
 
 0.24      2017-02-02 18:54:51+00:00 Europe/London

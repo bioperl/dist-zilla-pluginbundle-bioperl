@@ -62,6 +62,13 @@ equivalent to:
   [Test::EOL]           ; create release tests for correct line endings
   trailing_whitespace = 1
 
+  ;; While data files for the test units are often text files, they
+  ;; need to be treated as bytes.  This has the side effect of having
+  ;; them ignored by [Test::NoTabs] and [Test::EOL]
+  [Encoding]
+  encoding = bytes
+  match = ^t/data/
+
   [PodWeaver]
   config_plugin = @BioPerl
 
@@ -236,6 +243,10 @@ sub configure {
         ['Test::EOL' => {
             trailing_whitespace => $self->trailing_whitespace,
         }],
+        [Encoding => [
+             'encoding' => 'bytes',
+             'match' => '^t/data/',
+        ]],
         [PodWeaver => {
             config_plugin => '@BioPerl',
         }],

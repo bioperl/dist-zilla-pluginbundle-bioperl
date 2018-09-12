@@ -107,7 +107,7 @@ F<dist.ini>), the following steps will make a release:
 2. Run `dzil test --all'
 3. Edit dist.ini to bump the version number only.
 4. Run `dzil release'
-5. Run `git push --tags'
+5. Run `git push --follow-tags'
 
 These steps will automatically do the following:
 

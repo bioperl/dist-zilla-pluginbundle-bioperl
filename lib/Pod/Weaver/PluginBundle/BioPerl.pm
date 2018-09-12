@@ -126,8 +126,8 @@ sub fback_lists {
           "Bioperl modules. Send your comments and suggestions preferably to",
           "the Bioperl mailing list.  Your participation is much appreciated.",
           "",
-          "  {{\$bugtracker_email}}              - General discussion",
-          "  http://bioperl.org/Support.html    - About the mailing lists",
+          "  {{\$bugtracker_email}}               - General discussion",
+          "  https://bioperl.org/Support.html    - About the mailing lists",
           ];
 }
 

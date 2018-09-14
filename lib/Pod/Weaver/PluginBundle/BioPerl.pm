@@ -126,15 +126,14 @@ sub fback_lists {
           "Bioperl modules. Send your comments and suggestions preferably to",
           "the Bioperl mailing list.  Your participation is much appreciated.",
           "",
-          "  {{\$bugtracker_email}}              - General discussion",
-          "  http://bioperl.org/Support.html    - About the mailing lists",
+          "  {{\$bugtracker_email}}               - General discussion",
+          "  https://bioperl.org/Support.html    - About the mailing lists",
           ];
 }
 
 sub fback_support {
   return ["Please direct usage questions or support issues to the mailing list:",
           "I<{{\$bugtracker_email}}>",
-          "",
           "rather than to the module maintainer directly. Many experienced and",
           "reponsive experts will be able look at the problem and quickly",
           "address it. Please include a thorough description of the problem",

@@ -134,7 +134,6 @@ sub fback_lists {
 sub fback_support {
   return ["Please direct usage questions or support issues to the mailing list:",
           "I<{{\$bugtracker_email}}>",
-          "",
           "rather than to the module maintainer directly. Many experienced and",
           "reponsive experts will be able look at the problem and quickly",
           "address it. Please include a thorough description of the problem",
